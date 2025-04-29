@@ -24,7 +24,7 @@ public class AppExceptionHandler {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .build();
 
-        return new ResponseEntity<>(appException, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(appException, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
