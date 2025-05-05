@@ -54,7 +54,7 @@ public class ProductController {
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
         log.info("[ProductController][createProduct] стратовал: {}", JsonConverter.toJson(product).orElse(""));
         var response = productService.createProduct(
-                ProductMapper.productDTOToProduct(product)
+                AutoProductMapper.INSTANCE.productDTOToProduct(product)
         );
         log.info("[ProductController][createProduct] успешно отработал: {}", JsonConverter.toJson(response).orElse(""));
 
@@ -64,9 +64,11 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody Product product) {
+    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO product) {
         log.info("[ProductController][updateProduct] стратовал: {}", JsonConverter.toJson(product).orElse(""));
-        var response = productService.updateProduct(product);
+        var response = productService.updateProduct(
+                AutoProductMapper.INSTANCE.productDTOToProduct(product)
+        );
         log.info("[ProductController][updateProduct] успешно отработал: {}", JsonConverter.toJson(response).orElse(""));
 
         return ResponseEntity.ok(AutoProductMapper.INSTANCE.productToProductDTO(response));

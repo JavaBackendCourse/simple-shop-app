@@ -17,4 +17,7 @@ public interface AutoProductMapper {
 
     @Mapping(source = "category", target = "productCategory")
     List<ProductDTO> productsToDTOs(List<Product> products);
+
+    @Mapping(source = "productCategory", target = "category")
+    Product productDTOToProduct(ProductDTO productDTO);
 }
