@@ -27,6 +27,9 @@ public class Customer {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Cart cart;
+
     @PrePersist
     public void prePersist() {
         LocalDateTime now = LocalDateTime.now();

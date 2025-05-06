@@ -2,6 +2,7 @@ package org.myprojects.simple_shop_app.service;
 
 import org.myprojects.simple_shop_app.model.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,7 @@ public interface ProductService {
 
     Product updateProduct(Product product);
 
-    Product updateProductPrice(Long productId, Double newPrice);
+    Product updateProductPrice(Long productId, BigDecimal newPrice);
 
     Product getProduct(Long productId);
 

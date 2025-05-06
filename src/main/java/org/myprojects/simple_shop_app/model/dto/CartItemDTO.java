@@ -6,17 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductDTO {
-    private Long id;
-    private String name;
-    private String productCategory;
-    private BigDecimal price;
+public class CartItemDTO {
+    private Long productId;
+    private String productName;
+    private BigDecimal productPrice;
     private Integer quantity;
-    private LocalDateTime createdAt;
 }

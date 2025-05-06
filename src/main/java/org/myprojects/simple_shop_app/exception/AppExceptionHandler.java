@@ -7,18 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class AppExceptionHandler {
-    @ExceptionHandler(value = {ProductNotFoundException.class})
-    public ResponseEntity<AppException> productNotFound(ProductNotFoundException pNotFound) {
-        AppException appException = AppException.builder()
-                .statusCode(HttpStatus.NOT_FOUND.value())
-                .message(pNotFound.getMessage())
-                .build();
-
-        return new ResponseEntity<>(appException, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(value = {CustomerNotFoundException.class})
-    public ResponseEntity<AppException> customerNotFound(CustomerNotFoundException cNotFound) {
+    @ExceptionHandler(value = {ItemNotFoundException.class})
+    public ResponseEntity<AppException> customerNotFound(ItemNotFoundException cNotFound) {
         AppException appException = AppException.builder()
                 .statusCode(HttpStatus.NOT_FOUND.value())
                 .message(cNotFound.getMessage())

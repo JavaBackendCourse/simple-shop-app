@@ -2,8 +2,7 @@ package org.myprojects.simple_shop_app.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.myprojects.simple_shop_app.exception.CustomerNotFoundException;
-import org.myprojects.simple_shop_app.exception.ProductNotFoundException;
+import org.myprojects.simple_shop_app.exception.ItemNotFoundException;
 import org.myprojects.simple_shop_app.model.Customer;
 import org.myprojects.simple_shop_app.repository.CustomerRepository;
 import org.myprojects.simple_shop_app.service.CustomerService;
@@ -59,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
                                     .build()
                     ))
                     .orElseThrow(
-                            () -> new ProductNotFoundException("Покупатель не найден!")
+                            () -> new ItemNotFoundException("Покупатель не найден!")
                     );
             log.info("[CustomerServiceImpl][updateCustomerEmail][productId={}] успешно отработал: {}", customerId, JsonConverter.toJson(response).orElse(""));
 
@@ -75,7 +74,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             log.info("[CustomerServiceImpl][getCustomer][customerId={}] стратовал", customerId);
             var response = customerRepository.findById(customerId)
-                    .orElseThrow(() -> new CustomerNotFoundException("Продукт не найден!"));
+                    .orElseThrow(() -> new ItemNotFoundException("Продукт не найден!"));
 
             log.info("[CustomerServiceImpl][getCustomer][customerId={}] успешно отработал: {}",
                     customerId, JsonConverter.toJson(response).orElse(""));

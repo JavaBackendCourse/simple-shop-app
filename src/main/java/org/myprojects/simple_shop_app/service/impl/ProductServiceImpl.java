@@ -2,13 +2,14 @@ package org.myprojects.simple_shop_app.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.myprojects.simple_shop_app.exception.ProductNotFoundException;
+import org.myprojects.simple_shop_app.exception.ItemNotFoundException;
 import org.myprojects.simple_shop_app.model.Product;
 import org.myprojects.simple_shop_app.repository.ProductRepository;
 import org.myprojects.simple_shop_app.service.ProductService;
 import org.myprojects.simple_shop_app.utils.converters.JsonConverter;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product updateProductPrice(Long productId, Double newPrice) {
+    public Product updateProductPrice(Long productId, BigDecimal newPrice) {
 //        Optional<Product> productOpt = productRepository.findById(productId);
 //        if (productOpt.isEmpty()) {
 //            throw new ProductNotFoundException("Requested product not found!");
@@ -69,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
                                     .build()
                     ))
                     .orElseThrow(
-                            () -> new ProductNotFoundException("Продукт не найден!")
+                            () -> new ItemNotFoundException("Продукт не найден!")
                     );
             log.info("[ProductServiceImpl][updateProductPrice][productId={}] успешно отработал: {}", productId, JsonConverter.toJson(response).orElse(""));
 
@@ -85,7 +86,7 @@ public class ProductServiceImpl implements ProductService {
         try {
             log.info("[ProductServiceImpl][getProduct][productId={}] стратовал", productId);
             var response = productRepository.findById(productId)
-                    .orElseThrow(() -> new ProductNotFoundException("Продукт не найден!"));
+                    .orElseThrow(() -> new ItemNotFoundException("Продукт не найден!"));
 
             log.info("[ProductServiceImpl][getProduct][productId={}] успешно отработал: {}",
                     productId, JsonConverter.toJson(response).orElse(""));
