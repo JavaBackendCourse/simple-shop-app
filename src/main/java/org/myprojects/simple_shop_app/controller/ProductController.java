@@ -3,8 +3,6 @@ package org.myprojects.simple_shop_app.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.myprojects.simple_shop_app.mapper.AutoProductMapper;
-import org.myprojects.simple_shop_app.mapper.ProductMapper;
-import org.myprojects.simple_shop_app.model.Product;
 import org.myprojects.simple_shop_app.model.dto.ProductDTO;
 import org.myprojects.simple_shop_app.model.request.UpdateProductPriceRequest;
 import org.myprojects.simple_shop_app.service.ProductService;

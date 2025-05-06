@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.myprojects.simple_shop_app.exception.CustomerNotFoundException;
 import org.myprojects.simple_shop_app.exception.ProductNotFoundException;
 import org.myprojects.simple_shop_app.model.Customer;
-import org.myprojects.simple_shop_app.model.Product;
 import org.myprojects.simple_shop_app.repository.CustomerRepository;
 import org.myprojects.simple_shop_app.service.CustomerService;
 import org.myprojects.simple_shop_app.utils.converters.JsonConverter;
@@ -109,7 +108,7 @@ public class CustomerServiceImpl implements CustomerService {
             List<Customer> response = new ArrayList<>();
 
             if (customerName.isPresent() && customerEmail.isPresent())
-                response = customerRepository.findByEmailAndFullNameContaining(customerEmail.get(), customerName.get());
+                response = customerRepository.findByEmailAndFullNameContainingIgnoreCase(customerEmail.get(), customerName.get());
             else if (customerName.isPresent())
                 response = customerRepository.findByFullNameContainingIgnoreCase(customerName.get());
             else if (customerEmail.isPresent())
