@@ -1,5 +1,6 @@
 package org.myprojects.simple_shop_app.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,6 +29,7 @@ public class Customer {
     private LocalDateTime updatedAt;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Cart cart;
 
     @PrePersist
