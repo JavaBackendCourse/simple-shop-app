@@ -23,7 +23,7 @@ public class Customer {
     private String fullName;
     private LocalDate birthDay;
     private String email;
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDateTime createdAt;
     @Column(nullable = false)
     private LocalDateTime updatedAt;
