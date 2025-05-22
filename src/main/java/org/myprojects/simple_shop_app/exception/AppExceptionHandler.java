@@ -17,6 +17,16 @@ public class AppExceptionHandler {
         return new ResponseEntity<>(appException, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<AppException> illegalArgException(IllegalArgumentException illegalArgException) {
+        AppException appException = AppException.builder()
+                .message(illegalArgException.getMessage())
+                .statusCode(HttpStatus.BAD_REQUEST.value())
+                .build();
+
+        return new ResponseEntity<>(appException, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<AppException> runtimeException(RuntimeException runtimeException) {
         AppException appException = AppException.builder()
