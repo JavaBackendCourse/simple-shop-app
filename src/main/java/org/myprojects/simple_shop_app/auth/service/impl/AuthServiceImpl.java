@@ -31,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserService userService;
 
-    private TokenManagerService tokenManagerService;
+    private final TokenManagerService tokenManagerService;
 
     private final PasswordEncoder passwordEncoder;
 

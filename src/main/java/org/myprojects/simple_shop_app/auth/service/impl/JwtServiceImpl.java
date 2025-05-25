@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +29,8 @@ public class JwtServiceImpl implements JwtService {
 
     @Value("${app.settings.security.jwt.expiration}")
     private String jwtTokenExpiration;
+
+    private DateTimeFormatter defaultDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public String generateJwtToken(
             UserDetails userDetails
@@ -80,7 +83,7 @@ public class JwtServiceImpl implements JwtService {
             extraClaims.put("firstName", userDetailsAdapter.getUser().getFirstName());
             extraClaims.put("lastName", userDetailsAdapter.getUser().getLastName());
             extraClaims.put("middleName", userDetailsAdapter.getUser().getMiddleName());
-            extraClaims.put("birthDate", userDetailsAdapter.getUser().getBirthDate());
+            extraClaims.put("birthDate", userDetailsAdapter.getUser().getBirthDate().format(defaultDateFormat));
             extraClaims.put("email", userDetailsAdapter.getUser().getEmail());
             extraClaims.put("phoneNumber", userDetailsAdapter.getUser().getPhoneNumber());
             extraClaims.put("role", userDetailsAdapter.getUser().getRole().toString());

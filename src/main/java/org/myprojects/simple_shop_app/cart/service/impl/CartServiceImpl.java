@@ -6,12 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.myprojects.simple_shop_app.exception.ItemNotFoundException;
 import org.myprojects.simple_shop_app.cart.model.Cart;
 import org.myprojects.simple_shop_app.cart.model.CartItem;
-import org.myprojects.simple_shop_app.model.Customer;
 import org.myprojects.simple_shop_app.product.model.Product;
 import org.myprojects.simple_shop_app.cart.repository.CartRepository;
-import org.myprojects.simple_shop_app.repository.CustomerRepository;
 import org.myprojects.simple_shop_app.product.repository.ProductRepository;
 import org.myprojects.simple_shop_app.cart.service.CartService;
+import org.myprojects.simple_shop_app.user.model.User;
+import org.myprojects.simple_shop_app.user.model.UserRole;
+import org.myprojects.simple_shop_app.user.repository.UserRepository;
 import org.myprojects.simple_shop_app.utils.converters.JsonConverter;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ import java.util.Optional;
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
-    private final CustomerRepository customerRepository;
+    private final UserRepository customerRepository;
     private final ProductRepository productRepository;
 
     @Override
@@ -46,7 +47,7 @@ public class CartServiceImpl implements CartService {
     private Cart createCartForCustomer(Long customerId) {
         try {
             log.info("[CartServiceImpl][createCartForCustomer][customerId={}] стартовал", customerId);
-            Customer customer = customerRepository.findById(customerId)
+            User customer = customerRepository.findByIdAndRole(customerId, UserRole.CUSTOMER)
                     .orElseThrow(
                             () -> new ItemNotFoundException("Покупатель не найден!")
                     );

@@ -61,7 +61,7 @@ public class TokenManagerServiceImpl implements TokenManagerService {
                 refreshTokenRepository.save(
                         RefreshToken.builder()
                                 .userId(userId)
-                                .token(accessAndRefreshToken.a)
+                                .token(accessAndRefreshToken.b)
                                 .expiresAt(Instant.now().plusMillis(Long.parseLong(refreshTokenExpiration)))
                                 .build()
                 )

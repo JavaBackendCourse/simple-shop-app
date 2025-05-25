@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.myprojects.simple_shop_app.model.Customer;
+import org.myprojects.simple_shop_app.user.model.User;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class Cart {
     private Long id;
 
     @OneToOne
-    @JoinColumn(name = "customer_id", unique = true)
-    private Customer customer;
+    @JoinColumn(name = "user_id", unique = true)
+    private User customer;
 
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> items = new ArrayList<>();

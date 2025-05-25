@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.myprojects.simple_shop_app.cart.model.Cart;
 
 import java.time.LocalDate;
 
@@ -29,6 +30,9 @@ public class User {
     private String phoneNumber;
 
     private LocalDate birthDate;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "customer")
+    private Cart cart;
 
     @Column(nullable = false)
     private String email;
