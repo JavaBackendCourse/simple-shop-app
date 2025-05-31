@@ -1,7 +1,12 @@
 package org.myprojects.simple_shop_app.product.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.myprojects.simple_shop_app.exception.AppException;
 import org.myprojects.simple_shop_app.product.mapper.AutoProductMapper;
 import org.myprojects.simple_shop_app.product.model.dto.ProductDTO;
 import org.myprojects.simple_shop_app.product.model.request.UpdateProductPriceRequest;
@@ -21,6 +26,24 @@ import java.util.Optional;
 public class ProductController {
     private final ProductService productService;
 
+    @Operation(summary = "Получение продукта по ID")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Продукт успешно получен по ID",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "404",
+                    description = "Продукт не найден",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDTO> getProductDetails(@PathVariable Long productId) {
         log.info("[ProductController][getProductDetails][productId={}] стартовал", productId);
@@ -33,6 +56,19 @@ public class ProductController {
         );
     }
 
+    @Operation(summary = "Получение списка продуктов")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Список продуктов успешно получен",
+                    content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = ProductDTO.class)))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @GetMapping
     public ResponseEntity<List<ProductDTO>> getProducts(
             @RequestParam(required = false) String productName,
@@ -48,6 +84,19 @@ public class ProductController {
         return ResponseEntity.ok(AutoProductMapper.INSTANCE.productsToDTOs(response));
     }
 
+    @Operation(summary = "Создание продукта")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Продукт успешно создан",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO product) {
         log.info("[ProductController][createProduct] стратовал: {}", JsonConverter.toJson(product).orElse(""));
@@ -61,6 +110,24 @@ public class ProductController {
                 .body(AutoProductMapper.INSTANCE.productToProductDTO(response));
     }
 
+    @Operation(summary = "Обновление продукта")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Продукт успешно обновлен",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "404",
+                    description = "Продукт не найден",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @PutMapping
     public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO product) {
         log.info("[ProductController][updateProduct] стратовал: {}", JsonConverter.toJson(product).orElse(""));
@@ -72,6 +139,24 @@ public class ProductController {
         return ResponseEntity.ok(AutoProductMapper.INSTANCE.productToProductDTO(response));
     }
 
+    @Operation(summary = "Обновление цены продукта")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Цена продукта успешно обновлена",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ProductDTO.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "404",
+                    description = "Продукт не найден",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @PatchMapping("/{productId}")
     public ResponseEntity<ProductDTO> updateProductPrice(
             @PathVariable Long productId, @RequestBody UpdateProductPriceRequest request) {
@@ -83,6 +168,24 @@ public class ProductController {
         return ResponseEntity.ok(AutoProductMapper.INSTANCE.productToProductDTO(response));
     }
 
+    @Operation(summary = "Удаление продукта")
+    @io.swagger.v3.oas.annotations.responses.ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "200",
+                    description = "Продукт успешно удален",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = String.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "404",
+                    description = "Продукт не найден",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            ),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                    responseCode = "500",
+                    description = "Внутренняя ошибка сервера",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = AppException.class))
+            )
+    })
     @DeleteMapping("/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId) {
         log.info("[ProductController][deleteProduct][productId={}] стратовал", productId);
