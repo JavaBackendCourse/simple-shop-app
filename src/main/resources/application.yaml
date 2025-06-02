@@ -26,8 +26,8 @@ app:
       jwt:
         secret-key: ${JWT_SECRET_KEY:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
         expiration: ${JWT_TTL:3600000} # an hour
-      refresh-token:
-        expiration: ${REFRESH_TOKEN_TTL:86400000} # a day
+      internal-token:
+        value: ${INTERNAL_TOKEN:123321123asd}
     cache:
       ttl:
         default: ${REDIS_DEFAULT_TTL:300}

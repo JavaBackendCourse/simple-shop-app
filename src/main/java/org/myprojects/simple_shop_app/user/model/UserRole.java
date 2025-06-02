@@ -13,7 +13,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public enum UserRole {
     CUSTOMER(Collections.emptySet()),
-    ADMIN(Collections.emptySet());
+    ADMIN(Collections.emptySet()),
+    MANAGER(Collections.emptySet()),
+    SELLER(Collections.emptySet());
 
     private final Set<UserPermission> permissions;
 
