@@ -44,7 +44,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String userEmail = jwtService.extractUsernameFromToken(jwtToken);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (!tokenManagerService.isAccessTokenRevoked(jwtToken) || !jwtService.isTokenValid(jwtToken)) {
+            if (tokenManagerService.isAccessTokenRevoked(jwtToken) || !jwtService.isTokenValid(jwtToken)) {
                 response.sendError(HttpStatus.UNAUTHORIZED.value(), "Невалидный или просроченный токен");
 
                 return;
