@@ -22,7 +22,7 @@ spring:
   kafka:
     bootstrap-servers: ${KAFKA_HOSTS:localhost:19092}
     consumer:
-      group-id: revoked-token-consumer-group
+      group-id: ${SHOP_APP_CONSUMER_GROUP:simple-shop-app-consumer-group}
     topic:
       revoked-tokens:
         name: ${REVOKED_TOKENS:revoked-tokens}
