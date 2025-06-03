@@ -19,6 +19,11 @@ spring:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+  kafka:
+    bootstrap-servers: ${KAFKA_HOSTS:localhost:19092}
+    topic:
+      revoked-tokens:
+        name: ${REVOKED_TOKENS:revoked-tokens}
 
 app:
   settings:
@@ -31,6 +36,7 @@ app:
     cache:
       ttl:
         default: ${REDIS_DEFAULT_TTL:300}
+        revoked-tokens: ${REVOKED_TOKENS:3600000}
 
 logging:
   level:
